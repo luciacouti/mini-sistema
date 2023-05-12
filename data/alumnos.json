@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "legajo": "12345",
+    "edad": 25
+  },
+  {
+    "nombre": "María",
+    "apellido": "García",
+    "legajo": "67890",
+    "edad": 22
+  },
+  {
+    "nombre": "Carlos",
+    "apellido": "González",
+    "legajo": "24680",
+    "edad": 28
+  },
+  {
+    "nombre": "lucia",
+    "apellido": "kpa",
+    "email": "lla@lala.com",
+    "edad": "22"
+  },
+  {
+    "nombre": "Luli",
+    "apellido": "Kpa",
+    "legajo": "2345",
+    "edad": "22"
+  }
+]

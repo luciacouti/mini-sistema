@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Editar Alumno</title>
+
+ <script>
+  async function cargarAlumno() {
+   const legajo = window.location.pathname.split('/').pop();
+   const response = await fetch(`/alumnos/data/${legajo}`);
+   const alumno = await response.json();
+   document.getElementById('nombre').value = alumno.nombre;
+   document.getElementById('apellido').value = alumno.apellido;
+   document.getElementById('legajo').value = alumno.legajo;
+   document.getElementById('edad').value = alumno.edad;
+  }
+
+  cargarAlumno();
+ </script>
+</head>
+
+<body>
+ <h1>Formulario de Edición de Alumno</h1>
+ <form action="/alumnos/{{legajo}}" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" value="{{nombre}}" required><br><br>
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" name="apellido" value="{{apellido}}" required><br><br>
+  <label for="legajo">Legajo:</label>
+  <input type="number" id="legajo" name="legajo" value="{{legajo}}" required><br><br>
+  <label for="edad">Edad:</label>
+  <input type="number" id="edad" name="edad" value="{{edad}}" min="1" required><br><br>
+  <input type="submit" value="Guardar cambios">
+ </form>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Lista de Alumnos</title>
+ <script>
+  function getHTML(message) {
+   return message.replace(/\\(.)/g, '\$1');
+  }
+
+  async function cargarAlumnos() {
+   const response = await fetch('/alumnos/data');
+   const alumnos = await response.json();
+   const lista = document.getElementById('lista-alumnos');
+   alumnos.forEach((alumno) => {
+    const item = document.createElement('li');
+    item.innerHTML = getHTML(`<a href="/alumnos/${alumno.legajo}">${alumno.nombre} ${alumno.apellido}</a>`);
+    lista.appendChild(item);
+   });
+
+  }
+  cargarAlumnos();
+ </script>
+</head>
+
+<body>
+ <h1>Lista de Alumnos</h1>
+ <ul id="lista-alumnos">
+ </ul>
+ <a href="/alumnos/nuevo">Agregar nuevo alumno</a>
+</body>
+
+</html>

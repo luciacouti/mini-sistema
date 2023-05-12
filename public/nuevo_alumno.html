@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Agregar Alumno</title>
+</head>
+
+<body>
+ <h1>Agregar Alumno</h1>
+ <form action="/alumnos/nuevo" method="POST">
+  <label for="legajo">Legajo:</label>
+  <input type="text" id="legajo" name="legajo" required>
+  <br>
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required>
+  <br>
+  <label for="apellido">Apellido:</label>
+  <input type="text" id="apellido" name="apellido" required>
+  <br>
+  <label for="anio">Año:</label>
+  <input type="number" id="anio" name="anio" required>
+  <br>
+  <button type="submit">Agregar</button>
+ </form>
+</body>
+
+</html>

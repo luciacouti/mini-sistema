@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Detalle del Alumno</title>
+ <script>
+  // function getHTML(message) {
+  //  return message.replace(/\\(.)/g, '\$1');
+  // }
+  // async function cargarAlumno() {
+  //  const legajo = window.location.pathname.split('/').pop();
+  //  const response = await fetch(`/alumnos/data/${legajo}`);
+  //  const alumno = await response.json();
+  //  document.getElementById('nombre').innerText = getHTML(alumno.nombre);
+  //  document.getElementById('apellido').innerText = getHTML(alumno.apellido);
+  //  document.getElementById('legajo').innerText = getHTML(alumno.legajo);
+  //  document.getElementById('edad').innerText = getHTML(alumno.edad);
+
+  // }
+
+
+  let legajo;
+
+  async function cargarAlumno() {
+   legajo = window.location.pathname.split('/').pop();
+   const response = await fetch(`/alumnos/data/\${legajo}`);
+   const alumno = await response.json();
+   document.getElementById('nombre').innerText = alumno.nombre;
+   document.getElementById('apellido').innerText = alumno.apellido;
+   document.getElementById('legajo').innerText = alumno.legajo;
+   document.getElementById('edad').innerText = alumno.edad;
+  }
+
+  cargarAlumno();
+ </script>
+
+</head>
+
+<body>
+ <h1>Detalle del Alumno</h1>
+ <p>Nombre: <span id="nombre"></span></p>
+ <p>Apellido: <span id="apellido"></span></p>
+ <p>Legajo: <span id="legajo"></span></p>
+ <p>Edad: <span id="edad"></span></p>
+ <a href="/alumnos">Volver a la lista de alumnos</a>
+ <button onclick="location.href='/alumnos/editar/{{legajo}}'">Modificar datos</button>
+ <button onclick="editarAlumno('{{legajo}}')">Modificar datos</button>
+ <button onclick="editarAlumno(legajo)">Modificar datos</button>
+
+
+
+</body>
+
+</html>
