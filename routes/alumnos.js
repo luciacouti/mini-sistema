@@ -80,6 +80,68 @@ router.put('/:legajo', async (req, res) => {
 });
 
 
+router.post('/editar/:legajo', function (req, res, next) {
+ const legajo = req.params.legajo;
+ const nombre = req.body.nombre;
+ const apellido = req.body.apellido;
+ const email = req.body.email;
+ const telefono = req.body.telefono;
+
+ // Actualiza el alumno en la base de datos
+ db.run(`UPDATE alumnos SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE legajo = ?`, [nombre, apellido, email, telefono, legajo], function (err) {
+  if (err) {
+   console.log(err);
+   res.status(500).send('Error al actualizar el alumno en la base de datos');
+  } else {
+   res.redirect('/alumnos');
+  }
+ });
+});
+
+const fs = require('fs');
+const path = require('path');
+
+router.post('/editar/:legajo', function (req, res, next) {
+ const legajo = req.params.legajo;
+ const nombre = req.body.nombre;
+ const apellido = req.body.apellido;
+ const email = req.body.email;
+ const telefono = req.body.telefono;
+
+ const filePath = path.join(__dirname, '../data/alumnos.json');
+
+ fs.readFile(filePath, 'utf8', function (err, data) {
+  if (err) {
+   console.log(err);
+   res.status(500).send('Error al leer el archivo de alumnos');
+  } else {
+   const alumnos = JSON.parse(data);
+   const alumnoIndex = alumnos.findIndex(alumno => alumno.legajo.toString() === legajo);
+
+   if (alumnoIndex !== -1) {
+    alumnos[alumnoIndex].nombre = nombre;
+    alumnos[alumnoIndex].apellido = apellido;
+    alumnos[alumnoIndex].email = email;
+    alumnos[alumnoIndex].telefono = telefono;
+
+    fs.writeFile(filePath, JSON.stringify(alumnos, null, 2), 'utf8', function (err) {
+     if (err) {
+      console.log(err);
+      res.status(500).send('Error al actualizar el archivo de alumnos');
+     } else {
+      res.redirect('/alumnos');
+     }
+    });
+   } else {
+    res.status(404).send('Alumno no encontrado');
+   }
+  }
+ });
+});
+
+
+
+
 
 
 

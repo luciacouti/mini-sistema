@@ -23,7 +23,7 @@
 
 <body>
  <h1>Formulario de Edición de Alumno</h1>
- <form action="/alumnos/{{legajo}}" method="POST">
+ <form action="/alumnos/editar/{{legajo}}" method="POST">
   <input type="hidden" name="_method" value="PUT">
   <label for="nombre">Nombre:</label>
   <input type="text" id="nombre" name="nombre" value="{{nombre}}" required><br><br>
