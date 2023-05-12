@@ -25,7 +25,7 @@
 
   async function cargarAlumno() {
    legajo = window.location.pathname.split('/').pop();
-   const response = await fetch(`/alumnos/data/\${legajo}`);
+   const response = await fetch(`/alumnos/data/${legajo}`);
    const alumno = await response.json();
    document.getElementById('nombre').innerText = alumno.nombre;
    document.getElementById('apellido').innerText = alumno.apellido;
@@ -46,8 +46,6 @@
  <p>Edad: <span id="edad"></span></p>
  <a href="/alumnos">Volver a la lista de alumnos</a>
  <button onclick="location.href='/alumnos/editar/{{legajo}}'">Modificar datos</button>
- <button onclick="editarAlumno('{{legajo}}')">Modificar datos</button>
- <button onclick="editarAlumno(legajo)">Modificar datos</button>
 
 
 
