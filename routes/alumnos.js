@@ -71,7 +71,7 @@ router.put('/:legajo', async (req, res) => {
 });
 
 router.post('/editar/:legajo', function (req, res, next) {
- const legajo = req.params.legajo;
+ const legajo = req.body.legajo;
  const nombre = req.body.nombre;
  const apellido = req.body.apellido;
  const email = req.body.email;
@@ -85,7 +85,16 @@ router.post('/editar/:legajo', function (req, res, next) {
    res.status(500).send('Error al leer el archivo de alumnos');
   } else {
    const alumnos = JSON.parse(data);
-   const alumnoIndex = alumnos.findIndex(alumno => alumno.legajo.toString() === legajo);
+   // const alumnoIndex = alumnos.findIndex(alumno => alumno.legajo.toString() === legajo);
+   console.log('Alumnos:', alumnos);
+   console.log('Legajo:', alumno.legajo);
+
+   const alumnoIndex = alumnos.findIndex(alumno => {
+    console.log('Alumno actual:', alumno);
+    console.log('Alumno.legajo:', alumno.legajo);
+    return alumno.legajo && alumno.legajo.toString() === legajo;
+   });
+
 
    if (alumnoIndex !== -1) {
     alumnos[alumnoIndex].nombre = nombre;
