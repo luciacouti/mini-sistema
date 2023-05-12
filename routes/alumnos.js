@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const alumnosService = require('../services/alumnosService');
+const fs = require('fs');
+const path = require('path');
 
 router.get('/', async (req, res) => {
  const alumnos = await alumnosService.getAlumnos();
@@ -13,16 +15,6 @@ router.get('/data', async (req, res) => {
  const alumnos = await alumnosService.getAlumnos();
  res.json(alumnos);
 });
-
-
-// router.get('/:legajo', async (req, res) => {
-//  const alumno = await alumnosService.getAlumnoByLegajo(req.params.legajo);
-//  // Aquí se debe enviar el archivo HTML correspondiente a la vista del alumno
-//  // y pasar la información del alumno obtenida para mostrarla en la vista
-//  res.sendFile('public/alumno.html', {
-//   root: __dirname + '/../'
-//  });
-// });
 
 router.get('/nuevo', async (req, res) => {
  // Aquí se debe enviar el archivo HTML correspondiente a la vista de nuevo alumno
@@ -44,7 +36,6 @@ router.get('/data/:legajo', async (req, res) => {
  const alumno = await alumnosService.getAlumnoByLegajo(req.params.legajo);
  res.json(alumno);
 });
-
 
 // Aquí se deben agregar las rutas para las funcionalidades extra
 
@@ -73,33 +64,11 @@ router.use(methodOverride('_method'));
 router.put('/:legajo', async (req, res) => {
  try {
   await alumnosService.updateAlumno(req.params.legajo, req.body);
-  res.redirect(`/alumnos/\${req.params.legajo}`);
+  res.redirect(`/alumnos/\\${req.params.legajo}`);
  } catch (error) {
   res.status(500).send('Error al actualizar el alumno');
  }
 });
-
-
-router.post('/editar/:legajo', function (req, res, next) {
- const legajo = req.params.legajo;
- const nombre = req.body.nombre;
- const apellido = req.body.apellido;
- const email = req.body.email;
- const telefono = req.body.telefono;
-
- // Actualiza el alumno en la base de datos
- db.run(`UPDATE alumnos SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE legajo = ?`, [nombre, apellido, email, telefono, legajo], function (err) {
-  if (err) {
-   console.log(err);
-   res.status(500).send('Error al actualizar el alumno en la base de datos');
-  } else {
-   res.redirect('/alumnos');
-  }
- });
-});
-
-const fs = require('fs');
-const path = require('path');
 
 router.post('/editar/:legajo', function (req, res, next) {
  const legajo = req.params.legajo;
@@ -138,11 +107,5 @@ router.post('/editar/:legajo', function (req, res, next) {
   }
  });
 });
-
-
-
-
-
-
 
 module.exports = router;
